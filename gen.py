@@ -1,7 +1,11 @@
 import os
+import requests
 
 # Directory containing the static HTML files
 static_dir = "static"
+
+# URL of the API
+api_url = "https://fetcharch.vercel.app/logs"
 
 # Generate navigation HTML dynamically based on existing HTML files
 def generate_nav_html():
@@ -28,7 +32,7 @@ script_tag = '''
 '''
 
 # Function to inject content into HTML files
-def inject_content(html_file):
+def inject_content(html_file, logs_content=None):
     with open(os.path.join(static_dir, html_file), "r") as file:
         content = file.read()
 
@@ -46,12 +50,31 @@ def inject_content(html_file):
     content = content.replace("<!-- NAVIGATION_PLACEHOLDER -->", nav_html)
     content = content.replace("<!-- FOOTER_PLACEHOLDER -->", footer_html)
 
+    # Inject logs content if provided
+    if logs_content and html_file == "logs.html":
+        content = content.replace('<div id="logs-content"></div>', logs_content)
+
     # Write the updated content back to the file
     with open(os.path.join(static_dir, html_file), "w") as file:
         file.write(content)
 
-# Process each HTML file in the static directory
+# Fetch logs data from the API
+def fetch_logs():
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        data = response.json()
+        articles = data["documents"][0]["articles_log"]
+        return articles
+    else:
+        return "Failed to load logs."
+
+# Process each HTML file in the static directory and inject content
 html_files = [f for f in os.listdir(static_dir) if f.endswith('.html')]
 
+# Add "Website Logs" page to the navigation
 for html_file in html_files:
     inject_content(html_file)
+
+# Inject logs content into the logs page
+logs_content = fetch_logs()
+inject_content("logs.html", logs_content)
