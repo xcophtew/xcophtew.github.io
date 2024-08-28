@@ -1,6 +1,3 @@
-I would like to lock my code so it won't show anything or return an error if the domain it's serving is not https://xcophtew.github.io I'm using a GitHub static website. So we will make sure the code runs but the results with be blank with a "Access Denied" message only
-
-Could you help?
 import os
 
 # Directory containing the static HTML files
