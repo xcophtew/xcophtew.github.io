@@ -27,27 +27,21 @@ script_tag = '''
      crossorigin="anonymous"></script>
 '''
 
-# Font preconnect and stylesheet link
-font_preload = '''
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;700;800;900&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
-'''
-
 # Function to inject content into HTML files
 def inject_content(html_file):
     with open(os.path.join(static_dir, html_file), "r") as file:
         content = file.read()
 
-    # Generate the latest navigation HTML
-    nav_html = generate_nav_html()
-
-    # Insert meta tag, script tag, and font preloading into <head>
+    # Insert meta tag and script tag into <head>
     if '<head>' in content:
         head_end_index = content.find('</head>')
         if head_end_index != -1:
-            content = content[:head_end_index] + meta_tag + '\n' + script_tag + '\n' + font_preload + '\n' + '<link rel="stylesheet" href="static/style.css">' + '\n' + content[head_end_index:]
+            # Insert meta tag and script tag before </head>
+            content = content[:head_end_index] + meta_tag + '\n' + script_tag + '\n' + content[head_end_index:]
     
+    # Generate the latest navigation HTML
+    nav_html = generate_nav_html()
+
     # Insert navigation and footer
     content = content.replace("<!-- NAVIGATION_PLACEHOLDER -->", nav_html)
     content = content.replace("<!-- FOOTER_PLACEHOLDER -->", footer_html)
