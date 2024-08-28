@@ -10,7 +10,7 @@ if not api_key:
     raise ValueError("API key not set in environment variables")
 
 # URL of the API
-api_url = "https://fetcharch.vercel.app/xcophtew"
+api_url = "https://fetcharch.vercel.app/logs"
 headers = {
     "api-key": api_key
 }
