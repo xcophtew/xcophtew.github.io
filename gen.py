@@ -63,15 +63,33 @@ def fetch_logs():
     response = requests.get(api_url)
     if response.status_code == 200:
         data = response.json()
-        articles = data["documents"][0]["articles_log"]
-        return articles
+        articles_log = data["documents"][0]["articles_log"]
+        return process_logs(articles_log)
     else:
         return "Failed to load logs."
+
+# Process the logs into HTML
+def process_logs(logs):
+    # Split the logs into individual articles
+    articles = logs.split("  ")
+    articles = [article.strip() for article in articles if article.strip()]
+    
+    # Create an HTML list
+    html_list = "<ul>"
+    for article in articles:
+        if article.startswith("1. Title:"):
+            parts = article.split("    Summary:")
+            title = parts[0].replace("1. Title: ", "").strip('"')
+            summary = parts[1].strip() if len(parts) > 1 else ""
+            html_list += f'<li><strong>{title}</strong>: {summary}</li>'
+    html_list += "</ul>"
+    
+    return html_list
 
 # Process each HTML file in the static directory and inject content
 html_files = [f for f in os.listdir(static_dir) if f.endswith('.html')]
 
-# Add "Website Logs" page to the navigation
+# Add "Website Logs" page to the navigation and inject content
 for html_file in html_files:
     inject_content(html_file)
 
