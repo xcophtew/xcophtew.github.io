@@ -1,3 +1,6 @@
+I would like to lock my code so it won't show anything or return an error if the domain it's serving is not https://xcophtew.github.io I'm using a GitHub static website. So we will make sure the code runs but the results with be blank with a "Access Denied" message only
+
+Could you help?
 import os
 
 # Directory containing the static HTML files
@@ -34,21 +37,6 @@ font_preload = '''
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;700;800;900&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
 '''
 
-# Domain-locking JavaScript
-domain_lock_script = '''
-<script>
-    (function() {
-        var allowedDomain = 'https://xcophtew.github.io';
-        if (window.location.origin !== allowedDomain) {
-            document.body.innerHTML = '<h1>Access Denied</h1>';
-            document.body.style.display = 'block';
-        } else {
-            document.body.style.display = 'block';
-        }
-    })();
-</script>
-'''
-
 # Function to inject content into HTML files
 def inject_content(html_file):
     with open(os.path.join(static_dir, html_file), "r") as file:
@@ -57,21 +45,15 @@ def inject_content(html_file):
     # Generate the latest navigation HTML
     nav_html = generate_nav_html()
 
-    # Insert meta tag, script tag, font preloading, and domain-locking script into <head>
+    # Insert meta tag, script tag, and font preloading into <head>
     if '<head>' in content:
         head_end_index = content.find('</head>')
         if head_end_index != -1:
-            content = content[:head_end_index] + meta_tag + '\n' + script_tag + '\n' + font_preload + '\n' + '<link rel="stylesheet" href="static/style.css">' + '\n' + domain_lock_script + '\n' + content[head_end_index:]
+            content = content[:head_end_index] + meta_tag + '\n' + script_tag + '\n' + font_preload + '\n' + '<link rel="stylesheet" href="static/style.css">' + '\n' + content[head_end_index:]
     
     # Insert navigation and footer
     content = content.replace("<!-- NAVIGATION_PLACEHOLDER -->", nav_html)
     content = content.replace("<!-- FOOTER_PLACEHOLDER -->", footer_html)
-
-    # Add style to hide body initially
-    body_start_index = content.find('<body')
-    if body_start_index != -1:
-        body_tag_end = content.find('>', body_start_index)
-        content = content[:body_tag_end] + ' style="display: none;"' + content[body_tag_end:]
 
     # Write the updated content back to the file
     with open(os.path.join(static_dir, html_file), "w") as file:
