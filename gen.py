@@ -4,8 +4,16 @@ import requests
 # Directory containing the static HTML files
 static_dir = "static"
 
+# Fetch API key from environment variable
+api_key = os.getenv('FETCHARCH_API_KEY')
+if not api_key:
+    raise ValueError("API key not set in environment variables")
+
 # URL of the API
-api_url = "https://fetcharch.vercel.app/logs"
+api_url = "https://fetcharch.vercel.app/xcophtew"
+headers = {
+    "api-key": api_key
+}
 
 # Generate navigation HTML dynamically based on existing HTML files
 def generate_nav_html():
@@ -60,7 +68,7 @@ def inject_content(html_file, logs_content=None):
 
 # Fetch logs data from the API
 def fetch_logs():
-    response = requests.get(api_url)
+    response = requests.get(api_url, headers=headers)
     if response.status_code == 200:
         data = response.json()
         articles = data["documents"][0]["articles_log"]
