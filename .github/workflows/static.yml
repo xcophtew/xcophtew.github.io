@@ -30,7 +30,7 @@ jobs:
           python-version: '3.x'
 
       - name: Run Python Pre-processing Script
-        run: python generate_content.py
+        run: python gen.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
