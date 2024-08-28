@@ -20,7 +20,7 @@ def generate_nav_html():
 # Generate footer HTML
 footer_html = '''
 <footer>
-    <p>&copy; 2024 Network Xcophtew. All rights reserved.</p>
+    <p>&copy; 2024 Network Xcophtew.  All rights reserved.</p>
 </footer>
 '''
 
