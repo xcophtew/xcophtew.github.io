@@ -1,8 +1,8 @@
-/* static/style.css */
+/* Base Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #26292e;
-    color: #e0e0e0;
+    font-family: 'Nunito', 'Ubuntu', sans-serif; /* Use Nunito and Ubuntu fonts */
+    background-color: #26292e; /* Dark background for contrast */
+    color: #e0e0e0; /* Light text color for readability */
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,16 +10,17 @@ body {
     min-height: 100vh;
 }
 
+/* Navigation Styles */
 nav {
-    background-color: #1f1f1f;
+    background-color: #1f1f1f; /* Darker background for the navigation bar */
     padding: 10px;
     text-align: center;
 }
 
 nav ul {
-    list-style-type: none;
-    padding: 0;
+    list-style: none;
     margin: 0;
+    padding: 0;
 }
 
 nav ul li {
@@ -28,25 +29,27 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #bb86fc;
+    color: #bb86fc; /* Light purple color for links */
     text-decoration: none;
     font-size: 1.2em;
 }
 
 nav ul li a:hover {
-    color: #03dac6;
+    color: #03dac6; /* Light teal color on hover */
 }
 
+/* Footer Styles */
 footer {
-    background-color: #1f1f1f;
+    background-color: #1f1f1f; /* Same dark background as navigation */
     padding: 20px;
     text-align: center;
-    color: #999;
+    color: #999; /* Slightly lighter text color for footer */
     margin-top: auto;
 }
 
+/* Typography */
 h1 {
-    color: #bb86fc;
+    color: #bb86fc; /* Consistent link color for headings */
     text-align: center;
     margin-top: 20px;
 }
@@ -57,6 +60,7 @@ p {
     margin: 20px;
 }
 
+/* Container */
 .container {
     max-width: 800px;
     margin: 0 auto;
