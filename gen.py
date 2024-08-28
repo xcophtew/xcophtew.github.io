@@ -1,4 +1,15 @@
 import os
+import sys
+
+def check_domain():
+    # In a real web environment, you'd get the domain from the request
+    # For this example, we'll simulate it with an environment variable
+    current_domain = os.environ.get('CURRENT_DOMAIN', '')
+    allowed_domain = 'https://xcophtew.github.io'
+    
+    if current_domain != allowed_domain:
+        print("Access denied: Invalid domain")
+        sys.exit(1)
 
 # Directory containing the static HTML files
 static_dir = "static"
@@ -56,8 +67,15 @@ def inject_content(html_file):
     with open(os.path.join(static_dir, html_file), "w") as file:
         file.write(content)
 
-# Process each HTML file in the static directory
-html_files = [f for f in os.listdir(static_dir) if f.endswith('.html')]
+def main():
+    # Check the domain before proceeding
+    check_domain()
 
-for html_file in html_files:
-    inject_content(html_file)
+    # Process each HTML file in the static directory
+    html_files = [f for f in os.listdir(static_dir) if f.endswith('.html')]
+
+    for html_file in html_files:
+        inject_content(html_file)
+
+if __name__ == "__main__":
+    main()
