@@ -20,6 +20,9 @@ footer_html = """
 </footer>
 """
 
+# Meta tag to be added
+meta_tag = '<meta name="google-adsense-account" content="ca-pub-5283042537011987">'
+
 # Directory containing the static HTML files
 static_dir = "static"
 
@@ -28,6 +31,12 @@ def inject_content(html_file):
     with open(os.path.join(static_dir, html_file), "r") as file:
         content = file.read()
 
+    # Insert meta tag into <head>
+    if '<head>' in content:
+        head_end_index = content.find('</head>')
+        if head_end_index != -1:
+            content = content[:head_end_index] + meta_tag + '\n' + content[head_end_index:]
+    
     # Insert navigation and footer
     content = content.replace("<!-- NAVIGATION_PLACEHOLDER -->", nav_html)
     content = content.replace("<!-- FOOTER_PLACEHOLDER -->", footer_html)
