@@ -1,1 +1,47 @@
-Hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Xcophtew</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #eee;
+            text-align: center;
+            padding: 20px;
+        }
+        a {
+            color: #1e90ff;
+            text-decoration: none;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        .restricted {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Network Xcophtew</h1>
+    <p>Explore the deep web, human psychology, and philosophical views.</p>
+
+    <div id="content">
+        <a href="https://example.com">Deep Web Link 1</a><br>
+        <a href="https://example.com">Human Psychology Resource</a><br>
+        <a href="https://example.com">Philosophical Article</a>
+    </div>
+
+    <div id="restrictedMessage" class="restricted">
+        <p>This content can only be accessed via <strong>xcophtew.github.io</strong>.</p>
+    </div>
+
+    <script>
+        if (window.location.hostname !== 'xcophtew.github.io') {
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('restrictedMessage').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
