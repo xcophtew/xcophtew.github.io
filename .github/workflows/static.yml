@@ -35,6 +35,8 @@ jobs:
           pip install -r mods.txt
 
       - name: Run Python Pre-processing Script
+        env:
+          FETCHARCH_API_KEY: ${{ secrets.FETCHARCH_API_KEY }}
         run: python gen.py
 
       - name: Setup Pages
